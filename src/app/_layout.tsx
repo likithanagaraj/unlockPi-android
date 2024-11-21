@@ -1,10 +1,18 @@
-import { Slot, Stack } from "expo-router";
+// RootLayout.js
+import { Stack } from "expo-router";
+import React from "react";
+import { AuthProvider } from "../context/authContext";
 import "../../global.css";
-
-export default function RootLayot() {
+function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ title: "Meditations" }} />
-    </Stack>
+    <AuthProvider>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(auth)/login" options={{ title: "Login" }} />
+        <Stack.Screen name="(auth)/register" options={{ title: "Register" }} />
+        <Stack.Screen name="(tabs)" options={{ title: "Tabs" }} />
+      </Stack>
+    </AuthProvider>
   );
 }
+
+export default RootLayout;

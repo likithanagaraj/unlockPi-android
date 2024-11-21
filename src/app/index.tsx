@@ -1,14 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
+// index.js (Home Page)
+import { StyleSheet, View } from "react-native";
 import React from "react";
+import { Link } from "expo-router";
 
-const HomeScreen = () => {
+const index = () => {
   return (
-    <View className="">
-      <Text className="">HomeScreen</Text>
+    <View style={{ backgroundColor: "#fff", height: "100%" }}>
+      <Link href="../(auth)/login">Login</Link>
     </View>
   );
 };
 
-export default HomeScreen;
+export default index;
 
 const styles = StyleSheet.create({});
