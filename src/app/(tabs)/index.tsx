@@ -14,38 +14,29 @@ import SearchBar from "../../components/home/SearchBar";
 import TechnologyContainer from "../../components/home/TechnologyContainer";
 import MediaContainer from "../../components/home/MediaContainer";
 import NewsContainer from "../../components/home/NewsContainer";
-
-const Hero = () => {
-  return (
-    <View style={styles.heroCta}>
-      <Image
-        style={styles.heroImage}
-        source={require("../../assets/images/heroCta.png")}
-      />
-    </View>
-  );
-};
+import HomeBannerCarousel from "../../components/home/HomeBannerCarousel";
+import Home_searchBar from "../../components/home/Home_searchBar";
+import TabComponent from "../../components/home/TabComponent";
+import { ProtectedRoute } from "../../components/ProtectedRoute";
 
 const Index = () => {
   const router = useRouter();
   return (
-    <ScrollView
-      style={{ backgroundColor: "#fff" }}
-      stickyHeaderHiddenOnScroll={true}
-    >
-      <Navbar>Home</Navbar>
-      <View style={styles.mainContainer}>
-        <Pressable onPress={() => router.push("/(tabs)/search")}>
-          <SearchBar />
-        </Pressable>
-
-        <Hero />
-        <Text className="bg-black">Hi</Text>
-        <TechnologyContainer />
-        <MediaContainer />
-        <NewsContainer />
-      </View>
-    </ScrollView>
+    <ProtectedRoute>
+      <ScrollView
+        style={{ backgroundColor: "#fff" }}
+        stickyHeaderHiddenOnScroll={true}
+      >
+        <Navbar>Home</Navbar>
+        <View style={styles.mainContainer}>
+          <Home_searchBar />
+          <HomeBannerCarousel/>
+          <TechnologyContainer />
+          <MediaContainer />
+          <NewsContainer />
+        </View>
+      </ScrollView>
+    </ProtectedRoute>
   );
 };
 
@@ -84,5 +75,21 @@ const styles = StyleSheet.create({
   loadingimage: {
     width: 120,
     height: 120,
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white",
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "rgba(255,255,255,0.8)",
   },
 });

@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "learn-expo",
-    "slug": "learn-expo",
+    "name": "unlockPI",
+    "slug": "unlockPI",
     "version": "1.0.0",
     "scheme": "learn-expo",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./splashscreen.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./splashscreen.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,15 +18,24 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./splashscreen.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.likitha.n.unlockPI"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./splashscreen.png"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c9c1d19a-a587-4fa2-8902-2df190d4f597"
+      }
+    }
   }
 }

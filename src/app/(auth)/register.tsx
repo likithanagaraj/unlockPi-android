@@ -45,7 +45,7 @@ const register = () => {
     <SafeAreaView style={{ backgroundColor: "white", height: "100%" }}>
       <ScrollView >
         <View style={styles.container}>
-          {/* <AuthNavbar/> */}
+         
           <Text style={styles.text}>Registration</Text>
           <Image
             style={styles.heroimage}

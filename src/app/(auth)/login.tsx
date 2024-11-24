@@ -20,7 +20,7 @@ import CustomButton from "../../components/auth/CustomButton";
 
 // Define a type for form state
 interface FormState {
-  email: string;
+  email: string;  
   password: string;
 }
 

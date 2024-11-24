@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Button } from "react-native-paper";
 import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EventsContainer = () => {
   const [data, setdata] = useState<any[]>([]);
@@ -11,7 +12,17 @@ const EventsContainer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://unlockpi.vercel.app/api/events");
+        const token = await AsyncStorage.getItem("authToken");
+        if (!token) {
+          console.log("No token found, please login again.");
+          return;
+        }
+        const response = await fetch("https://unlockpi.vercel.app/api/events", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const result = await response.json();
         setdata(result);
       } catch (error) {
@@ -103,11 +114,15 @@ const EventsContainer = () => {
               </View>
             </View>
             <View style={{ gap: 10 }}>
-              <Text numberOfLines={3} style={styles.description}>{item.description}</Text>
+              <Text numberOfLines={3} style={styles.description}>
+                {item.description}
+              </Text>
               <Button
                 icon="arrow-right"
                 mode="contained"
-                onPress={() => {router.push(`/(events)/${item.slug}`)}}
+                onPress={() => {
+                  router.push(`/(events)/${item.slug}`);
+                }}
                 buttonColor="#DC2626"
                 textColor="white"
                 style={styles.button}

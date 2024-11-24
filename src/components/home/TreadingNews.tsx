@@ -8,15 +8,30 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { router } from "expo-router";
+import { useAuth } from "../../context/authContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const TreadingNews = () => {
   const [data, setdata] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://unlockpi.vercel.app/api/news");
+        const token = await AsyncStorage.getItem('authToken')
+        
+        const response = await fetch("https://unlockpi.vercel.app/api/news", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const result = await response.json();
+        // console.log(response)
+        // console.log("Auth Token:", authToken);
+
+        console.log(response.json())
+        
         setdata(result);
       } catch (error) {
         console.error("Error fetching data:", error);

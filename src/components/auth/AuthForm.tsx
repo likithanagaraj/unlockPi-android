@@ -1,5 +1,6 @@
 import {
   Button,
+  Platform,
   StyleSheet,
   Text,
   TextInput,
@@ -44,6 +45,8 @@ const styles = StyleSheet.create({
   inputText: {
     fontSize: 17,
     fontWeight: "bold",
+    
+
   },
   inputContainer: {
     flexDirection: "column",

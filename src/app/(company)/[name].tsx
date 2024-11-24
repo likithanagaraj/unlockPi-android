@@ -2,6 +2,8 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { ActivityIndicator } from "react-native-paper";
+import { useAuth } from "../../context/authContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CompanyDetails = ({ slug }: any) => {
   return (
@@ -23,10 +25,17 @@ const CompanyDetails = ({ slug }: any) => {
 const JobContainer = ({name}:any) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://unlockpi.vercel.app/api/jobs");
+        const token = await AsyncStorage.getItem('authToken')
+        const response = await fetch("https://unlockpi.vercel.app/api/jobs", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const result = await response.json();
         setData(result); 
       } catch (error) {

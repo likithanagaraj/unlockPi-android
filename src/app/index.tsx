@@ -6,7 +6,8 @@ import { Link } from "expo-router";
 const index = () => {
   return (
     <View style={{ backgroundColor: "#fff", height: "100%" }}>
-      <Link href="../(auth)/login">Login</Link>
+      <Link href="/(auth)/login">Login</Link>
+    
     </View>
   );
 };

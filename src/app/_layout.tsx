@@ -3,6 +3,8 @@ import { Stack } from "expo-router";
 import React from "react";
 import { AuthProvider } from "../context/authContext";
 import "../../global.css";
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["Setting a timer"]);
 function RootLayout() {
   return (
     <AuthProvider>
@@ -16,3 +18,5 @@ function RootLayout() {
 }
 
 export default RootLayout;
+
+// wrap  <AuthProvider> around the <Stack> component

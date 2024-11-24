@@ -1,15 +1,15 @@
-import React from 'react';
-import { Redirect } from 'expo-router';
-import { useAuth } from '../context/authContext';
+import React from "react";
+import { useRouter } from "expo-router";
+import { useAuth } from "../context/authContext";
 
 export const ProtectedRoute = ({ children }) => {
   const { authToken } = useAuth();
+  const router = useRouter();
 
-  // Redirect to login if not authenticated
   if (!authToken) {
-    return <Redirect href="/auth/login" />;
+    router.replace("/auth/login"); // Redirect unauthorized users
+    return null;
   }
 
-  // Ensure `children` is properly wrapped or passed as JSX
   return <>{children}</>;
 };

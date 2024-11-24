@@ -1,27 +1,29 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-export const saveToken = async (token) => {
-  try {
-    await AsyncStorage.setItem('authToken', token);
-  } catch (error) {
-    console.error('Failed to save token', error);
-  }
-};
-
+// Get token from storage
 export const getToken = async () => {
   try {
-    return await AsyncStorage.getItem('authToken');
+    return await AsyncStorage.getItem("authToken");
   } catch (error) {
-    console.error('Failed to get token', error);
+    console.error("Error retrieving token:", error);
     return null;
   }
 };
 
+// Save token to storage
+export const saveToken = async (token) => {
+  try {
+    await AsyncStorage.setItem("authToken", token);
+  } catch (error) {
+    console.error("Error saving token:", error);
+  }
+};
+
+// Remove token from storage
 export const removeToken = async () => {
   try {
-    await AsyncStorage.removeItem('authToken');
+    await AsyncStorage.removeItem("authToken");
   } catch (error) {
-    console.error('Failed to remove token', error);
+    console.error("Error removing token:", error);
   }
 };

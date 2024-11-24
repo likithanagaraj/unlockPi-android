@@ -6,13 +6,13 @@ import { useAuth } from "../../context/authContext";
 import { Avatar } from "react-native-paper";
 import { black } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 // import "../../global.css";
-const Navbar = ({children}:any) => {
+const Navbar = ({ children }: any) => {
   const {user} = useAuth()
 
   const initials = user.email.split("@")[0].slice(0, 2).toUpperCase();
-  console.log(initials)
+  console.log(initials);
   return (
-    <View style={styles.container}>
+    <View style={styles.container} className="py-2">
       <View style={styles.leftContainer}>
         <TouchableOpacity onPress={() => router.push(`/(tabs)`)}>
           <Image
@@ -23,10 +23,14 @@ const Navbar = ({children}:any) => {
 
         <View>
           <Text style={styles.text}>{children}</Text>
-          <Text style={styles.subText}>Kormangala</Text>
+          {/* <Text style={styles.subText}>Kormangala</Text> */}
         </View>
       </View>
-      <Avatar.Text style={{backgroundColor:"black",}}   size={38} label={initials} />
+      <Avatar.Text
+        style={{ backgroundColor: "black", }}
+        size={34}
+        label={initials}
+      />
       {/* <Text className="text-2xl font-bold bg-black ">{initials}</Text> */}
       {/* <TouchableOpacity
         style={styles.avatarContainer}
@@ -61,7 +65,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   text: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
   },
   subText: {
@@ -77,5 +81,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     color: "white",
   },
-  
 });
