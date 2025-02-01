@@ -20,21 +20,25 @@ const AuthForm = ({
 }: any) => {
   const [showPassword, setshowPassword] = useState(false);
   return (
-    <View style={styles.formContainer}>
-      <View style={styles.inputContainer}>
+   
+      <View className=" mb-3 ">
+        <View className="gap-2"> 
         <Text style={styles.inputText}>{title}</Text>
-        <TextInput
+       <View className="border  border-[#e5e5e5] rounded-md ">
+       <TextInput
+       className="p-3"
           placeholderTextColor={"#7b7b7b"}
           placeholder={placeholder}
           value={value}
           onChangeText={handleChangeText}
-          style={styles.inputbox}
           secureTextEntry={(title === "Password" || title === "Confirm Password") && !showPassword}
         />
+       </View>
+        </View>
     
         
       </View>
-    </View>
+
   );
 };
 
@@ -55,11 +59,5 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     justifyContent: "center",
   },
-  inputbox: {
-    paddingHorizontal: 10,
-    fontWeight: "500",
-    borderWidth: 0.2,
-    width: 250,
-    borderRadius: 5,
-  },
+ 
 });

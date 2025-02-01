@@ -1,12 +1,28 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Button } from "react-native-paper";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const SkeletonLoader = () => (
+  <View style={styles.skeletonCard}>
+    <View style={styles.skeletonImage} />
+    <View style={styles.skeletonTextLarge} />
+    <View style={styles.skeletonTextSmall} />
+    <View style={styles.skeletonTextSmall} />
+  </View>
+);
+
 const EventsContainer = () => {
-  const [data, setdata] = useState<any[]>([]);
+  const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,7 +40,7 @@ const EventsContainer = () => {
           },
         });
         const result = await response.json();
-        setdata(result);
+        setData(result);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -33,6 +49,19 @@ const EventsContainer = () => {
     };
     fetchData();
   }, []);
+
+  if (loading) {
+    // Render the skeleton loader while data is being fetched
+    return (
+      <ScrollView contentContainerStyle={styles.skeletonContainer}>
+        {Array(3)
+          .fill(null)
+          .map((_, index) => (
+            <SkeletonLoader key={index} />
+          ))}
+      </ScrollView>
+    );
+  }
 
   return (
     <>
@@ -46,7 +75,7 @@ const EventsContainer = () => {
             borderWidth: 1,
             paddingVertical: 25,
             paddingHorizontal: 18,
-            borderColor: "#E0E0E0",
+            borderColor: "#e5e5e5",
             borderRadius: 20,
             gap: 5,
           }}
@@ -73,7 +102,11 @@ const EventsContainer = () => {
                   gap: 2,
                 }}
               >
-                <Ionicons name="location-outline" size={18} color={"#DC2626"} />
+                <Ionicons
+                  name="location-outline"
+                  size={18}
+                  color={"#DC2626"}
+                />
                 <Text
                   style={{
                     fontSize: 16,
@@ -159,5 +192,40 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
     paddingVertical: 3,
+  },
+  // Skeleton Styles
+  skeletonContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 20,
+    paddingVertical: 20,
+  },
+  skeletonCard: {
+    width: 320,
+    height: 300,
+    borderRadius: 10,
+    backgroundColor: "#e0e0e0",
+    padding: 20,
+  },
+  skeletonImage: {
+    width: "100%",
+    height: 150,
+    borderRadius: 8,
+    backgroundColor: "#cfcfcf",
+    marginBottom: 15,
+  },
+  skeletonTextLarge: {
+    width: "80%",
+    height: 20,
+    borderRadius: 5,
+    backgroundColor: "white",
+    marginBottom: 10,
+  },
+  skeletonTextSmall: {
+    width: "60%",
+    height: 15,
+    borderRadius: 5,
+    backgroundColor: "#d0d0d0",
+    marginBottom: 5,
   },
 });

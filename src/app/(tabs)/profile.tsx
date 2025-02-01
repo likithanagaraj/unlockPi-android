@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, StyleSheet, Text, View, ScrollView } from "react-native";
+import { Alert, StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import { Avatar, Button } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
@@ -24,7 +24,8 @@ const Profile = () => {
   const userName = username.charAt(0).toUpperCase() + username.slice(1);
 
   return (
-    <View className="">
+   
+      <View className="">
       <Ionicons
         name="person-circle-sharp"
         size={100}
@@ -39,6 +40,7 @@ const Profile = () => {
         You're a Premium User 🔥
       </Text>
     </View>
+    
   );
 };
 
@@ -56,7 +58,7 @@ const ButtonComponent = () => {
           style: "destructive",
           onPress: () => {
             logout(); // Clear token
-            router.push("/(auth)/login"); // Redirect to login screen
+            router.push("/"); // Redirect to login screen
           },
         },
       ],
@@ -72,7 +74,7 @@ const ButtonComponent = () => {
         style={{
           borderWidth: 1,
           backgroundColor: "white",
-          borderColor: "black",
+          borderColor: "#e5e5e5",
           borderRadius: 8,
         }}
         onPress={() => console.log("Pressed")}
@@ -85,7 +87,7 @@ const ButtonComponent = () => {
         style={{
           borderWidth: 1,
           backgroundColor: "white",
-          borderColor: "black",
+          borderColor: "#e5e5e5",
           borderRadius: 8,
         }}
         onPress={() => console.log("Pressed")}

@@ -3,8 +3,10 @@ import { ScrollView } from "react-native";
 import Navbar from "../../components/home/Navbar";
 import EventsContainer from "../../components/home/EventsContainer";
 import { ProtectedRoute } from "../../components/ProtectedRoute";
+import { useAuth } from "../../context/authContext";
 
 const index = () => {
+  const {user} = useAuth()
   return (
     <ProtectedRoute>
       <ScrollView
@@ -18,7 +20,7 @@ const index = () => {
         <View style={{ paddingHorizontal: 15, paddingVertical: 10 }}>
           <Text style={{ fontSize: 30, fontWeight: "bold" }}>Events</Text>
           <Text className="text-gray-600" style={{ fontSize: 18, fontWeight: "normal" }}>
-            Hello, Faizan There are 2 events around your location.
+            Hello, {user.username} There are 2 events around your location.
           </Text>
           <View style={styles.mainContainer}>
             <EventsContainer />

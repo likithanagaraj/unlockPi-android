@@ -121,7 +121,7 @@ const register = () => {
             />
            
             <Link href={"/(auth)/login"} style={{ textDecorationLine: "underline", color: "#DC2626",textAlign:"center",marginTop:10 }}>
-              Already have an  account?
+              <Text>Already have an  account?</Text>
             </Link>
           </View>
         </View>

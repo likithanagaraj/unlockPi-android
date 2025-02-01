@@ -1,140 +1,111 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  ScrollView,
-  Animated,
-  Pressable,
-} from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
+import React, { useRef, useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image, FlatList, Dimensions, Pressable } from 'react-native';
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const CAROUSEL_ITEM_WIDTH = SCREEN_WIDTH;
+const { width } = Dimensions.get('window');
+const ITEM_WIDTH = 320;
 
-type CarouselItemType = {
-  type: 'card' | 'link';
-  title: string;
-  content: string;
-  link: string;
-};
-
-const carouselItems: CarouselItemType[] = [
-  {
-    type: 'link',
-    title: 'Latest News',
-    content: 'Stay updated with the newest Raspberry Pi announcements and releases.',
-    link: '/(tabs)/news',
-  },
-  {
-    type: 'link',
-    title: 'Featured Companies',
-    content: 'Explore companies leveraging Raspberry Pi in innovative ways.',
-    link: '/(tabs)/search',
-  },
-  {
-    type: 'link',
-    title: 'Upcoming Events',
-    content: 'Join Raspberry Pi enthusiasts at our upcoming events and workshops.',
-    link: '/(tabs)/events',
-  },
-];
-
-// Banner Component
-const Banner = ({ title, content }: { title?: string; content?: string }) => {
-  return (
-    <LinearGradient
-      colors={['#FFFFFF', '#DE3333']}
-      start={{ x: 0, y: 1 }}
-      end={{ x: 1, y:  0}}
-      style={styles.bannerContainer}
-    >
-      <Text style={styles.title}>{title || 'Welcome to UnlockPi'}</Text>
-      <Text style={styles.content} numberOfLines={3}>
-        {content ||
-          'Discover the latest in Raspberry Pi innovations and community projects.'}
-      </Text>
-     <Pressable onPress={()=>router.push(`/${title}`)}>
-     <Text className='w-32 h-12 font-semibold text-[16px] bg-black text-white text-center align-middle rounded-md mt-2'>Join Now</Text>
-     </Pressable>
-    </LinearGradient>
-  );
-};
-
-const HomeBannerCarousel = ({ navigation }: any) => {
-  const scrollViewRef = useRef<ScrollView>(null);
+const HomeBannerCarousel = () => {
+  const flatListRef = useRef<FlatList>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollX = useRef(new Animated.Value(0)).current;
+
+  const tabs = [
+    {
+      id: 1,
+      title: 'Welcome to UnlockPi',
+      subtitle: 'Your career compass for future opportunities.',
+      button: 'Join Now',
+      image: require('../../assets/images/bg2.png'),
+      featuredImage: require('../../assets/images/welcome_bg.png'),
+      link: '/(tabs)',
+    },
+    {
+      id: 2,
+      title: 'Latest News',
+      subtitle: 'Stay updated with the latest news.',
+      button: 'Join Now',
+      image: require('../../assets/images/bg2.png'),
+      featuredImage: require('../../assets/images/news_bg.png'),
+      link: '/(tabs)/news',
+    },
+    {
+      id: 3,
+      title: 'Events',
+      subtitle: 'Explore the latest events.',
+      button: 'Join Now',
+      image: require('../../assets/images/bg2.png'),
+      featuredImage: require('../../assets/images/companies_bg.png'),
+      link: '/(tabs)/events',
+    },
+    {
+      id: 4,
+      title: 'Companies',
+      subtitle: 'Company search at your fingertips.',
+      button: 'Join Now',
+      image: require('../../assets/images/bg2.png'),
+      featuredImage: require('../../assets/images/event_bg.png'),
+      link: '/(tabs)/search',
+    },
+  ];
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (scrollViewRef.current) {
-        const nextIndex = (currentIndex + 1) % (carouselItems.length + 1); // Loop back to the first banner
-        scrollViewRef.current.scrollTo({
-          x: nextIndex * CAROUSEL_ITEM_WIDTH,
+    const scrollInterval = setInterval(() => {
+      if (currentIndex < tabs.length - 1) {
+        flatListRef.current?.scrollToIndex({
+          index: currentIndex + 1,
           animated: true,
         });
-        setCurrentIndex(nextIndex);
+        setCurrentIndex(currentIndex + 1);
+      } else {
+        flatListRef.current?.scrollToIndex({
+          index: 0,
+          animated: true,
+        });
+        setCurrentIndex(0);
       }
-    }, 5000);
+    }, 3000); // Change slide every 3 seconds
 
-    return () => clearInterval(timer); // Cleanup timer on unmount
+    return () => clearInterval(scrollInterval);
   }, [currentIndex]);
 
-  const handleScroll = Animated.event(
-    [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-    { useNativeDriver: false }
-  );
-
-  const handleMomentumScrollEnd = (event: any) => {
-    const newIndex = Math.round(
-      event.nativeEvent.contentOffset.x / CAROUSEL_ITEM_WIDTH
-    );
-    setCurrentIndex(newIndex);
-  };
-
- 
-
-  const renderItem = (item: CarouselItemType, index: number) => (
-    <TouchableOpacity
-      key={index}
-      style={styles.carouselItem}
-      onPress={() => router.push(item.link)}
-    >
-      <Banner title={item.title} content={item.content} />
-    </TouchableOpacity>
+  const renderItem = ({ item }: any) => (
+    <Pressable onPress={() => router.push(`${item.link}`)}>
+      <View style={styles.container}>
+        <Image source={item.image} style={styles.bgImage} />
+        <Image source={item.featuredImage} style={styles.featuredImage} />
+        <View style={styles.content}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.subtitle}>{item.subtitle}</Text>
+        </View>
+      </View>
+    </Pressable>
   );
 
   return (
-    <View style={styles.container}>
-      {/* Carousel */}
-      <ScrollView
-        ref={scrollViewRef}
+    <View>
+      <FlatList
+        ref={flatListRef}
         horizontal
-        pagingEnabled
+        data={tabs}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderItem}
+        contentContainerStyle={{ paddingHorizontal: 10 ,paddingBottom: 10}}
         showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}
-        onMomentumScrollEnd={handleMomentumScrollEnd}
-        scrollEventThrottle={16}
-      >
-        {/* Default Banner */}
-        <View style={styles.carouselItem}>
-          <Banner />
-        </View>
-        {carouselItems.map((item, index) => renderItem(item, index))}
-      </ScrollView>
-
-      {/* Pagination */}
+        pagingEnabled
+        snapToInterval={ITEM_WIDTH + 20} // Item width + horizontal margin
+        decelerationRate="fast"
+        onMomentumScrollEnd={(event) => {
+          const newIndex = Math.round(event.nativeEvent.contentOffset.x / (ITEM_WIDTH + 20));
+          setCurrentIndex(newIndex);
+        }}
+      />
       <View style={styles.pagination}>
-        {[...Array(carouselItems.length + 1)].map((_, index) => (
+        {tabs.map((_, index) => (
           <View
             key={index}
             style={[
-              styles.paginationDot,
-              currentIndex === index && styles.paginationDotActive,
+              styles.dot,
+              index === currentIndex ? styles.activeDot : styles.inactiveDot,
             ]}
           />
         ))}
@@ -145,49 +116,62 @@ const HomeBannerCarousel = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 250,
-    marginBottom: 20,
-  },
-  carouselItem: {
-    width: CAROUSEL_ITEM_WIDTH,
-    
-  },
-  bannerContainer: {
     borderRadius: 10,
-    padding: 20,
-    height: 200,
-    justifyContent: 'center',
-
+    overflow: 'hidden',
+    minHeight: 140,
+    borderWidth: 1,
+    borderColor: '#DF3C3C',
+    width: ITEM_WIDTH,
+    marginHorizontal: 10,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#000000',
+  bgImage: {
+    width: '100%',
+    height: 150,
+  },
+  featuredImage: {
+    position: 'absolute',
+    width: 140,
+    height: 140,
+    left: 180,
+    top: 12,
   },
   content: {
-    fontSize: 16,
-    color: '#333333',
-    lineHeight: 22,
+    position: 'absolute',
+    padding: 20,
+  },
+  title: {
+    fontSize: 22,
+    maxWidth: 140,
+    fontWeight: 'bold',
+    color: '#E41E31',
+  },
+  subtitle: {
+    fontSize: 14,
+    maxWidth: 170,
+    fontWeight: '500',
+    marginVertical: 8,
   },
   pagination: {
+    position: 'absolute',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
+    // justifyContent: 'center
+    // alignItems: 'center',
+    
+    top: 135,
+    left: 140,
+    // marginTop: 10,
   },
-  paginationDot: {
+  dot: {
     width: 8,
     height: 8,
-    borderRadius: 4,
-    backgroundColor: '#ccc',
+    borderRadius: 5,
     marginHorizontal: 4,
   },
-  paginationDotActive: {
-    backgroundColor: '#333',
-    width: 12,
-    height: 12,
-    borderRadius: 6,
+  activeDot: {
+    backgroundColor: '#E41E31',
+  },
+  inactiveDot: {
+    backgroundColor: '#ccc',
   },
 });
 

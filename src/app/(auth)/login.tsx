@@ -1,16 +1,13 @@
+import React, { useState, useEffect } from "react";
 import {
   Alert,
-  Button,
   Image,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
-import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import { Link, router } from "expo-router";
 
 import { useAuth } from "../../context/authContext";
@@ -20,31 +17,37 @@ import CustomButton from "../../components/auth/CustomButton";
 
 // Define a type for form state
 interface FormState {
-  email: string;  
+  email: string;
   password: string;
 }
 
-const login = () => {
-  const [form, setform] = useState<FormState>({
+const Login = () => {
+  const [form, setForm] = useState<FormState>({
     email: "",
     password: "",
   });
-  const [isSubmitting, setisSubmitting] = useState(false);
-  const { login } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login, user } = useAuth();
 
-  const submit = async () => {
-    console.log(form);
-    setisSubmitting(true);
+  // Redirect if the user is already logged in
+  useEffect(() => {
+    if (user) {
+      router.replace("/(tabs)"); // Redirect to main screen if already logged in
+    }
+  }, [user]);
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
     try {
       const response = await apiClient.post("/login", form);
       const token = response.data.token;
-      const userDetails = response.data.user; // Adjust according to your API response
-      login(token, userDetails);
-      router.push("/(tabs)"); // Redirect to protected route (tabs)
+      const userDetails = response.data.user; // Adjust based on your API response
+      await login(token, userDetails);
+      router.replace("/(tabs)"); // Navigate and clear the login page from the stack
     } catch (error) {
-      alert("Login Failed");
+      Alert.alert("Login Failed", "Please check your credentials and try again.");
     } finally {
-      setisSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -54,49 +57,36 @@ const login = () => {
         <View style={styles.container}>
           <Text style={styles.text}>Login</Text>
           <Image
-            style={styles.heroimage}
+            style={styles.heroImage}
             source={require("../../assets/images/auth-hero.png")}
           />
           <View style={styles.formContainer}>
             <AuthForm
               title="Email"
-              placeholder="example@gmail"
+              placeholder="example@gmail.com"
               value={form.email}
-              otherStyles="fontSize:30"
-              handleChangeText={(e: string) =>
-                setform({
-                  ...form,
-                  email: e,
-                })
+              handleChangeText={(email: string) =>
+                setForm({ ...form, email })
               }
             />
             <AuthForm
               placeholder="******"
               title="Password"
               value={form.password}
-              otherStyles="fontSize:30"
-              handleChangeText={(e: string) =>
-                setform({
-                  ...form,
-                  password: e,
-                })
+              handleChangeText={(password: string) =>
+                setForm({ ...form, password })
               }
             />
             <CustomButton
               title="Login"
-              handlePress={submit}
+              handlePress={handleSubmit}
               isLoading={isSubmitting}
             />
             <Link
               href={"/(auth)/register"}
-              style={{
-                textDecorationLine: "underline",
-                color: "#DC2626",
-                textAlign: "center",
-                marginTop: 10,
-              }}
+              style={styles.registerLink}
             >
-              Don't have any account?
+              <Text>Don't have an account? Register</Text>
             </Link>
           </View>
         </View>
@@ -105,7 +95,7 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
@@ -120,7 +110,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
   },
-  heroimage: {
+  heroImage: {
     width: "100%",
     height: 300,
     resizeMode: "contain",
@@ -133,5 +123,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "column",
     gap: 3,
+  },
+  registerLink: {
+    textDecorationLine: "underline",
+    color: "#DC2626",
+    textAlign: "center",
+    marginTop: 10,
   },
 });

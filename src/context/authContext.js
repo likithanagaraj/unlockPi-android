@@ -1,54 +1,53 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { getToken, saveToken, removeToken } from "../utils/authUtils"; // Ensure these utils are correctly implemented
+import { getToken, saveToken, removeToken } from "../utils/authUtils";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(null);
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Loading state for initial load
 
-  // Function to decode JOSH token (assuming it's a JWT-like token)
   const decodeToken = (token) => {
     try {
-      const [, payload] = token.split("."); // Assuming it's a JWT format
-      const decodedPayload = JSON.parse(atob(payload)); // Decode Base64 payload
-      return decodedPayload; // Returns user details from token
+      const [, payload] = token.split(".");
+      const decodedPayload = JSON.parse(atob(payload));
+      return decodedPayload;
     } catch (error) {
       console.error("Failed to decode token:", error);
       return null;
     }
   };
 
-  // Load the token and user details when the component mounts
   useEffect(() => {
     const loadToken = async () => {
-      const token = await getToken(); // Fetch the token from storage
+      setIsLoading(true);
+      const token = await getToken();
       if (token) {
-        setAuthToken(token); // Set the auth token
-        const userDetails = decodeToken(token); // Decode token to get user details
-        setUser(userDetails); // Set user details
+        const userDetails = decodeToken(token);
+        setAuthToken(token);
+        setUser(userDetails);
       }
+      setIsLoading(false); // Loading complete
     };
     loadToken();
   }, []);
 
-  // Handle login by saving token, decoding it, and setting user details
   const login = async (token) => {
-    await saveToken(token); // Save token to storage
-    setAuthToken(token); // Set auth token
-    const userDetails = decodeToken(token); // Decode and set user info
-    setUser(userDetails); // Set user state
+    await saveToken(token);
+    setAuthToken(token);
+    const userDetails = decodeToken(token);
+    setUser(userDetails);
   };
 
-  // Handle logout by removing the token and clearing user details
   const logout = async () => {
-    await removeToken(); // Remove token from storage
-    setAuthToken(null); // Clear auth token state
-    setUser(null); // Clear user state
+    await removeToken();
+    setAuthToken(null);
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ authToken, user, login, logout }}>
+    <AuthContext.Provider value={{ authToken, user, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

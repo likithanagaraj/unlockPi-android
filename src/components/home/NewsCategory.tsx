@@ -1,6 +1,8 @@
 import { Pressable, StyleSheet, Text, View, Dimensions, Platform } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import { Item } from "react-native-paper/lib/typescript/components/Drawer/Drawer";
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const BUTTON_WIDTH = (SCREEN_WIDTH - 60) / 2; // Account for padding and gap
@@ -9,15 +11,18 @@ interface CategoryButtonProps {
   title: string;
   isWide?: boolean;
   icon: keyof typeof Ionicons.glyphMap;
+  slug: string;
 }
 
 const CategoryButton: React.FC<CategoryButtonProps> = ({
   title,
   isWide = false,
   icon,
+  slug
 }) => {
   return (
     <Pressable
+    onPress={()=>router.push(`/(category)/${slug}`)}
       style={[
         styles.categoryButton,
         isWide && styles.wideButton,
@@ -59,22 +64,29 @@ const NewsCategory = () => {
   return (
     <View className="" style={styles.container}>
       {/* <Text style={styles.headerText}>News Categories</Text> */}
-      <View style={styles.gridContainer}>
+    
+     <View style={styles.gridContainer}>
         {categories.map((category, index) => (
+          
           <CategoryButton
+          
+          slug ={category.title}
             key={index}
             title={category.title}
             icon={category.icon}
             isWide={category.isWide}
           />
-        ))}
+        ))
+        }
       </View>
+    
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+
     // padding: 16,
   },
   headerText: {
@@ -86,14 +98,15 @@ const styles = StyleSheet.create({
   gridContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    gap: 12,
+
+    // justifyContent: 'space-between',
+    gap: 8,
   },
   categoryButton: {
     backgroundColor: '#DF3C3C',
     borderRadius: 8,
     padding: 16,
-    width: BUTTON_WIDTH,
+    width: "48.5%",
     marginBottom: 4,
   },
   wideButton: {

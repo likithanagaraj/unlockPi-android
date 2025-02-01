@@ -18,7 +18,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./splashscreen.png",
+        "foregroundImage": "./unlockpi.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.likitha.n.unlockPI"

@@ -2,15 +2,15 @@ import { StyleSheet, Text, TextInput, View, FlatList, TouchableOpacity, Image } 
 import React, { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<{ title?: string; name?: string; logo?: string }[]>([]);
+  const [results, setResults] = useState<{ title?: string; name?: string; logo?: string; slug?: string; category?: string }[]>([]);
   const [filteredResults, setFilteredResults] = useState<
-    { title?: string; name?: string; logo?: string }[]
+    { title?: string; name?: string; logo?: string; slug?: string; category?: string }[]
   >([]);
-  const [activeTab, setActiveTab] = useState<"News" | "Companies">("Companies");
+  const [activeTab, setActiveTab] = useState<"News" | "Companies">("News");
   const [filters, setFilters] = useState<any>({});
 
   const fetchData = async (tab: "News" | "Companies", query: string, filters: any) => {
@@ -106,7 +106,7 @@ const SearchBar = () => {
   };
 
   return (
-    <View style={{ gap: 5, height: 550 }}>
+    <View className="mt-1 " style={{ gap: 5,backgroundColor:"white "  }}>
       <View style={styles.container}>
         <TextInput
           placeholder="Find best job for you!"
@@ -145,15 +145,64 @@ const SearchBar = () => {
         data={filteredResults} // Use the same filtered results for both tabs
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
-          <View className="" style={styles.resultItem}>
+          <View  className="">
             {activeTab === "News" ? (
               // Rendering logic for "News" tab
-              <Text style={styles.resultText}>{item.title}</Text>
-            ) : (
+              
+
+                <View
+                className=""
+                  style={{
+
+                    flexDirection: "row",
+                    gap: 20,
+                    marginBottom: 18,
+                    alignItems: "center",
+                    borderWidth: 1,
+                    borderColor: "#e5e5e5",
+                    padding: 8,
+                    borderRadius: 12,
+                  }}
+                >
+                  
+                  <Image
+                  
+                    source={require("../../assets/images/newsCover.png")}
+                    style={{ width: 110, height: 80, borderRadius: 10 }}
+                  />
+                  <TouchableOpacity onPress={() => router.push(`/(news)/${item.slug}`)}>
+                    <View>
+                      <Text
+                        style={{
+                          maxWidth: 200,
+                          fontSize: 15,
+                          fontWeight: "600",
+                          textAlign: "left",
+                        }}
+                      >
+                        {item.title}
+                      </Text>
+        
+                      <View
+                        style={{
+                          flex: 1,
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: 5,
+                        }}
+                      >
+                        <Text style={styles.badge}>{item.category}</Text>
+                        <Text>Tue Nov 12 2024</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              )
+             : (
               // Rendering logic for "Companies" tab
               <Link href={`/(company)/${item.title}`}>
-               <View className="flex-row gap-10  items-center ">
-                <View className="bg-gray-100 w-20 h-20 items-center justify-center shadow-lg">
+               <View className="flex-row gap-10  items-center  ">
+                <View className="bg-white mb-5 w-20 h-20 items-center justify-center shadow-lg">
                 {item.logo && <Image resizeMode="contain" source={{ uri: item.logo }} style={{ width: 50, height: 50 }} />}
                 </View>
                <Text className="text-[18px] font-semibold">{item.name}</Text>
@@ -176,11 +225,20 @@ const SearchBar = () => {
 };
 
 const styles = StyleSheet.create({
+  badge: {
+    backgroundColor: "#DE3333",
+    borderRadius: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "#fff",
+  },
   container: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    borderColor: "#E0E0E0",
+    borderColor: "#e5e5e5",
     borderWidth: 1,
     borderRadius: 50,
     paddingHorizontal: 10,
@@ -190,6 +248,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#E0E0E0",
+    width: "100%",
     // flexDirection:"column",
     // justifyContent:"space-between"
     // backgroundColor: "black",

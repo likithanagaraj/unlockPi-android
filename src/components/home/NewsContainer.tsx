@@ -6,8 +6,8 @@ const NewsContainer = () => {
   return (
     
       <View style={{ flex: 1, gap: 15 }}>
-        <Text style={{ fontSize: 30, fontWeight: "semibold", letterSpacing: -0.2 }}>
-          Treading news
+        <Text  className="h1" >
+          Trending news
         </Text>
         <View style={{ flex: 1, gap: 20 }}>
           

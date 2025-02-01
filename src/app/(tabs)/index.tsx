@@ -8,32 +8,32 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-import { Link, router, useRouter } from "expo-router";
+import {  useRouter } from "expo-router";
 import Navbar from "../../components/home/Navbar";
-import SearchBar from "../../components/home/SearchBar";
 import TechnologyContainer from "../../components/home/TechnologyContainer";
 import MediaContainer from "../../components/home/MediaContainer";
 import NewsContainer from "../../components/home/NewsContainer";
 import HomeBannerCarousel from "../../components/home/HomeBannerCarousel";
 import Home_searchBar from "../../components/home/Home_searchBar";
-import TabComponent from "../../components/home/TabComponent";
 import { ProtectedRoute } from "../../components/ProtectedRoute";
 
 const Index = () => {
   const router = useRouter();
   return (
+    
     <ProtectedRoute>
       <ScrollView
         style={{ backgroundColor: "#fff" }}
         stickyHeaderHiddenOnScroll={true}
       >
-        <Navbar>Home</Navbar>
+        <Navbar>UnlockPi</Navbar>
         <View style={styles.mainContainer}>
           <Home_searchBar />
-          <HomeBannerCarousel/>
+          <HomeBannerCarousel />
+          <NewsContainer />
           <TechnologyContainer />
           <MediaContainer />
-          <NewsContainer />
+          
         </View>
       </ScrollView>
     </ProtectedRoute>

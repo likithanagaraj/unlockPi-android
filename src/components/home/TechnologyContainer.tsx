@@ -1,52 +1,94 @@
-import { FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import Carousel from "./Carousel";
 import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+interface Company {
+  id: string;
+  name: string;
+  logo: string;
+  slug: string;
+  industry: string;
+}
+
+const SkeletonLoader = () => (
+  <View style={styles.skeletonContainer}>
+    <View style={styles.skeletonImage} />
+    <View style={styles.skeletonText} />
+  </View>
+);
 
 const TechnologyContainer = () => {
-  
-  const [company, setcompany] = useState([
-    {
-      id:1,
-      name: "Google",
-      image: require("../../assets/images/googlelogo.png"),
-    },
-    {
-      id:2,
-      name: "Apple",
-      image: require("../../assets/images/apple_logo.jpg"),
-    },
-    {
-      id:3,
-      name: "Microsoft",
-      image: require("../../assets/images/microsoft_logo.jpg"),
-    },
-    {
-      id:4,
-      name: "Amazon",
-      image: require("../../assets/images/apple_logo.jpg"),
-    },
-    {id:5,
-      name: "Tesla",
-      image: require("../../assets/images/apple_logo.jpg"),
-    },
-  ]);
+  const [company, setCompany] = useState<Company[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = await AsyncStorage.getItem("authToken");
+        const response = await fetch(
+          "https://unlockpi.vercel.app/api/companies",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const result = await response.json();
+        setCompany(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Filter the companies for only the "Technology" industry
+  const technologyCompanies = company.filter(
+    (item) => item.industry === "Technology"
+  );
 
   return (
-    <View style={styles.maincontainer}>
-      <Text style={styles.header}>Technology</Text>
-      <FlatList
-        horizontal
-        data={company}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity key={item.id}    onPress={() => router.push(`/(company)/${item.name}`)}>
-            <Carousel name={item.name} image={item.image} />
-          </TouchableOpacity>
-        )}
-        contentContainerStyle={styles.listContent} // Add padding/margin between items
-        showsHorizontalScrollIndicator={false} // Hides the horizontal scroll indicator
-      />
+    <View style={styles.mainContainer}>
+      <Text className="h1">Technology</Text>
+      {loading ? (
+        // Render skeleton loader while data is being fetched
+        <FlatList
+          horizontal
+          data={Array(5).fill({})} // Dummy array to render skeletons
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={() => <SkeletonLoader />}
+          contentContainerStyle={styles.listContent}
+          showsHorizontalScrollIndicator={false}
+        />
+      ) : (
+        <FlatList
+          horizontal
+          data={technologyCompanies} // Pass the filtered data directly
+          keyExtractor={(item) => item.id} // Use the unique ID for key extraction
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              key={item.id}
+              onPress={() => router.push(`/(company)/${item.slug}`)}
+            >
+              <Carousel name={item.name} image={item.logo} />
+            </TouchableOpacity>
+          )}
+          contentContainerStyle={styles.listContent}
+          showsHorizontalScrollIndicator={false}
+        />
+      )}
     </View>
   );
 };
@@ -54,14 +96,39 @@ const TechnologyContainer = () => {
 export default TechnologyContainer;
 
 const styles = StyleSheet.create({
-  maincontainer: {
+  mainContainer: {
     flex: 1,
   },
   header: {
     fontSize: 25,
     marginBottom: 15,
+    fontWeight: "bold",
   },
   listContent: {
-    gap: 20, 
+    paddingHorizontal: 10,
+    gap: 25,
+  },
+  skeletonContainer: {
+    width: 150,
+    height: 200,
+    backgroundColor: "#e0e0e0",
+    borderRadius: 10,
+    marginRight: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
+  skeletonImage: {
+    width: "100%",
+    height: "70%",
+    backgroundColor: "white",
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  skeletonText: {
+    width: "60%",
+    height: 15,
+    backgroundColor: "#cfcfcf",
+    borderRadius: 5,
   },
 });

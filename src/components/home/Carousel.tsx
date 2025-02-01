@@ -3,9 +3,11 @@ import React from 'react'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
 const Carousel = ({name,image}:any) => {
+
+  const imageUrl = image;
   return (
-    <View style={styles.container}>
-     <View> <Image style={{resizeMode:"contain",height:80,width:80}} source={image} /> </View>
+    <View className='' style={styles.container}>
+     <View> <Image style={{resizeMode:"contain",height:80,width:80}} source={{uri:imageUrl}} /> </View>
       <View style={styles.textbox} >
       <Text style={{fontWeight:'bold'}}>{name}</Text>
       <Text style={{fontWeight:'light'}}>500+Empl...</Text>

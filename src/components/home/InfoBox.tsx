@@ -38,7 +38,7 @@ const InfoBox = () => {
           style={{
             flex: 1,
             flexDirection: "column",
-            borderColor: "#E0E0E0",
+            borderColor: "#e5e5e5",
             borderWidth: 1,
             width: 360,
             padding: 18,

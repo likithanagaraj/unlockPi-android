@@ -6,18 +6,49 @@ import { useAuth } from "../../context/authContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CompanyDetails = ({ slug }: any) => {
+  const [data, setData] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = await AsyncStorage.getItem("authToken");
+        const response = await fetch(
+          `https://unlockpi.vercel.app/api/companies?q=${slug}`, // Fetch jobs by slug
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    };
+
+    fetchData();
+  }, [slug]);
   return (
     <View style={{gap:2}}>
       {/* <Text style={styles.box}></Text> */}
-      <Image style={styles.box}  source={require("../../assets/images/google.png")}  />
-      <Text style={{ fontSize: 30, fontWeight: "600", letterSpacing: -0.3 }}>
-        {slug}
-      </Text>
-      <Text style={{fontSize:18,fontWeight:"500"}}>Social Media Hydrabad</Text>
-      <Text style={{color:"#737373"}}>
-        {slug} is a social media and social networking service company that
-        helps people connect and share with others.
-      </Text>
+     {
+      data.map((item: any, index: number) => (
+        <View>
+          <Image style={styles.box}  source={{uri:item.logo}}  />
+        <Text style={{ fontSize: 32, fontWeight: "600", letterSpacing: -0.3 }}>
+          {item.name}
+        </Text>
+       <View className="flex-row items-center w-60 gap-3">
+       <Text className="text-[#737373]" style={{fontSize:16,fontWeight:"400"}}>{item.industry}</Text>
+       <Text  className="text-[#737373]" style={{fontSize:16,fontWeight:"400"}}>{item.location}</Text>
+       </View>
+        <Text className="text-[15px]">
+          {item.overview}
+        </Text>
+        </View>
+      ))
+     }
     </View>
   );
 };
@@ -104,7 +135,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "white",
     resizeMode: "contain",
-    borderColor: "#E0E0E0",
+    borderColor: "#e5e5e5",
     borderWidth: 1,
     
    

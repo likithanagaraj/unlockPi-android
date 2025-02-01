@@ -41,7 +41,7 @@ const News = () => {
     );
   }
   return (
-    <View style={{ backgroundColor: "#fff",height:"100%"}}>
+    <View style={{ backgroundColor: "white",height:"100%"}}>
       {data
         .filter((item: any) => item.slug === title)
         .map((item: any, index: number) => (
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   mainContainer: {
+    // backgroundColor: "#fff",
     gap: 10,
     flexDirection: "column",
     paddingHorizontal: 15,

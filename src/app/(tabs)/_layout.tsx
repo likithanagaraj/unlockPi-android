@@ -31,7 +31,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="search"
         options={{
-          tabBarStyle: { display: "none" },
+          // tabBarStyle: { display: "none" },
           title: "PI",
           tabBarIcon: ({ color }) => (
             <Ionicons name="search" size={25} color={color} />

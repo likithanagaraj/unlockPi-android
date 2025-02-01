@@ -1,10 +1,13 @@
 // RootLayout.js
 import { Stack } from "expo-router";
-import React from "react";
+import React, { createContext, useContext } from "react";
 import { AuthProvider } from "../context/authContext";
 import "../../global.css";
 import { LogBox } from "react-native";
 LogBox.ignoreLogs(["Setting a timer"]);
+
+
+
 function RootLayout() {
   return (
     <AuthProvider>
