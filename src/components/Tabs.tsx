@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
+import { theme } from '../utils/theme';
 
 export default function Demo() {
   const [workStatus, setWorkStatus] = useState('experienced');
@@ -15,7 +16,7 @@ export default function Demo() {
           style={[styles.toggleButton, workStatus === 'experienced' && styles.selectedButton]}
           onPress={() => setWorkStatus('experienced')}
         >
-          <MaterialIcons name="work" size={18} color={workStatus === 'experienced' ? '#fff' : '#333'} />
+          <MaterialIcons name="work" size={18} color={workStatus === 'experienced' ? '#fff' : theme.lighttext} />
           <Text style={[styles.toggleText, workStatus === 'experienced' && styles.selectedText]}>
             I'm experienced
           </Text>
@@ -25,7 +26,7 @@ export default function Demo() {
           style={[styles.toggleButton, workStatus === 'fresher' && styles.selectedButton]}
           onPress={() => setWorkStatus('fresher')}
         >
-          <FontAwesome5 name="graduation-cap" size={16} color={workStatus === 'fresher' ? '#fff' : '#333'} />
+          <FontAwesome5 name="graduation-cap" size={16} color={workStatus === 'fresher' ? '#fff' : theme.lighttext} />
           <Text style={[styles.toggleText, workStatus === 'fresher' && styles.selectedText]}>
             I'm a fresher
           </Text>
@@ -47,8 +48,9 @@ export default function Demo() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: theme.cardbg,
     justifyContent: 'center',
+    marginBottom: 20,
   },
   label: {
     fontSize: 16,
@@ -67,20 +69,21 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: theme.bordercolor,
     marginRight: 5,
     
   },
   selectedButton: {
-    backgroundColor: '#DC2626',
-    color:"black"
+    backgroundColor: theme.bordercolor,
+    color:"black",
   },
   toggleText: {
     marginLeft: 5,
-    color: '#333',
+    color: theme.lighttext,
   },
   selectedText: {
     color: '#fff',
+    
   },
   experienceText: {
     fontSize: 14,
@@ -92,19 +95,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: theme.bordercolor,
     borderRadius: 5,
     borderStyle: 'dashed',
   },
   uploadText: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#666',
     textAlign: 'center',
+    fontFamily: 'Geist',
   },
   uploadSubtitle: {
     fontSize: 12,
     color: '#aaa',
     textAlign: 'center',
     marginTop: 5,
+    
   },
 });

@@ -5,6 +5,7 @@ import { ActivityIndicator, Button } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuth } from "../../context/authContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { theme } from "../../utils/theme";
 
 const Events = () => {
   const { title } = useLocalSearchParams();
@@ -53,7 +54,7 @@ const Events = () => {
           .filter((item: any) => item.slug === title)
           .map((item: any, index: number) => (
             <View key={index} style={styles.mainContainer}>
-              <Text style={{ fontSize: 26, fontWeight: "bold" }}>
+              <Text style={{ fontSize: 24, fontWeight: "bold" ,color:theme.darktext,fontFamily:"Geist-SemiBold"}}>
                 {item.title}
               </Text>
               <Image
@@ -74,6 +75,8 @@ const Events = () => {
                       fontSize: 16,
                       fontWeight: "semibold",
                       letterSpacing: -0.2,
+                      color:theme.darktext,
+                       fontFamily:"Geist"
                     }}
                   >
                     {item.location}
@@ -86,20 +89,23 @@ const Events = () => {
                       fontSize: 16,
                       fontWeight: "semibold",
                       letterSpacing: -0.2,
+                      color:theme.darktext,
+                      fontFamily:"Geist"
                     }}
                   >
                     {item.eventDate.split("T")[0].split("-").reverse().join("/")}
                   </Text>
                 </View>
               </View>
-              <Text className="text-[15px] my-5 ">{item.description}</Text>
+              <Text style={{color:theme.lighttext,fontFamily:"Geist"}} className="text-[14px] ">{item.description}</Text>
             </View>
           ))}
         <Button
           mode="contained"
           textColor="white"
-          className="px-2  text-[18px] font-bold"
-          style={{ backgroundColor: "#DC2626", borderRadius: 8 }}
+          labelStyle={{fontFamily:"Geist-Bold"}}
+          className="px-2 my-5 text-[18px] font-bold"
+          style={{ backgroundColor: "#DC2626", borderRadius: 8, }}
           onPress={() => console.log("Pressed")}
         >
           Attend
@@ -117,13 +123,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
+    backgroundColor: theme.darkbackground,
   },
   mainContainer: {
     gap: 10,
     flexDirection: "column",
     paddingHorizontal: 12,
-    backgroundColor: "white",
-    marginBottom: 10,
+    backgroundColor: theme.darkbackground,
+    // marginBottom: 10,
   },
   badge: {
     backgroundColor: "#DE3333",

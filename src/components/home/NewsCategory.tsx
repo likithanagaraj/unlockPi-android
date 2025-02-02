@@ -3,6 +3,7 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Item } from "react-native-paper/lib/typescript/components/Drawer/Drawer";
+import { theme } from "../../utils/theme";
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const BUTTON_WIDTH = (SCREEN_WIDTH - 60) / 2; // Account for padding and gap
@@ -42,7 +43,7 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
     >
       <View style={styles.buttonContent}>
       <Text style={styles.buttonText}>{title}</Text>
-        <Ionicons name={icon} size={24} color="white" style={styles.icon} />
+        <Ionicons name={icon} size={20} color="white" style={styles.icon} />
        
       </View>
       {/* <Ionicons name="chevron-forward" size={20} color="white" /> */}
@@ -103,11 +104,13 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   categoryButton: {
-    backgroundColor: '#DF3C3C',
+    backgroundColor: theme.cardbg,
     borderRadius: 8,
     padding: 16,
     width: "48.5%",
     marginBottom: 4,
+    borderColor: theme.bordercolor,
+    borderWidth: 1,
   },
   wideButton: {
     width: '100%',
@@ -125,6 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     flex: 1,
+    fontFamily:"Geist-Medium"
   },
 });
 

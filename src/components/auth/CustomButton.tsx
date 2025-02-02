@@ -49,8 +49,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontWeight: "bold", 
+    // fontWeight: "bold", 
     fontSize: 18, 
+    fontFamily: "Geist-Medium",
   },
   spinner: {
     marginLeft: 8, // Equivalent to ml-2

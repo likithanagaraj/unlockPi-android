@@ -8,7 +8,7 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-import {  useRouter } from "expo-router";
+import {  Link, useRouter } from "expo-router";
 import Navbar from "../../components/home/Navbar";
 import TechnologyContainer from "../../components/home/TechnologyContainer";
 import MediaContainer from "../../components/home/MediaContainer";
@@ -16,17 +16,17 @@ import NewsContainer from "../../components/home/NewsContainer";
 import HomeBannerCarousel from "../../components/home/HomeBannerCarousel";
 import Home_searchBar from "../../components/home/Home_searchBar";
 import { ProtectedRoute } from "../../components/ProtectedRoute";
+import { theme } from "../../utils/theme";
 
 const Index = () => {
-  const router = useRouter();
   return (
     
     <ProtectedRoute>
       <ScrollView
-        style={{ backgroundColor: "#fff" }}
+      style={{backgroundColor:theme.darkbackground}}
         stickyHeaderHiddenOnScroll={true}
       >
-        <Navbar>UnlockPi</Navbar>
+        <Navbar  >UnlockPi</Navbar>
         <View style={styles.mainContainer}>
           <Home_searchBar />
           <HomeBannerCarousel />
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
   },
   loadingText: {
     marginTop: 10,

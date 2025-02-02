@@ -4,6 +4,7 @@ import Navbar from "../../components/home/Navbar";
 import EventsContainer from "../../components/home/EventsContainer";
 import { ProtectedRoute } from "../../components/ProtectedRoute";
 import { useAuth } from "../../context/authContext";
+import { theme } from "../../utils/theme";
 
 const index = () => {
   const {user} = useAuth()
@@ -11,15 +12,15 @@ const index = () => {
     <ProtectedRoute>
       <ScrollView
         style={{
-          backgroundColor: "#fff",
+          backgroundColor: theme.darkbackground,
         }}
         stickyHeaderHiddenOnScroll={true}
       >
         <Navbar>Events</Navbar>
 
         <View style={{ paddingHorizontal: 15, paddingVertical: 10 }}>
-          <Text style={{ fontSize: 30, fontWeight: "bold" }}>Events</Text>
-          <Text className="text-gray-600" style={{ fontSize: 18, fontWeight: "normal" }}>
+          <Text style={{ fontSize: 25 ,color:theme.darktext,fontFamily:"Geist-SemiBold"}}>Events</Text>
+          <Text  style={{ fontSize: 16,fontFamily:"Geist-Light",color:theme.lighttext }}>
             Hello, {user.username} There are 2 events around your location.
           </Text>
           <View style={styles.mainContainer}>

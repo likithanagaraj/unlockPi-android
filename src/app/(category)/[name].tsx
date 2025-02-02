@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import TreadingNews from "../../components/home/TreadingNews";
+import { theme } from "../../utils/theme";
 
 const NewsCategories = () => {
   const [data, setdata] = useState<any[]>([]);
@@ -44,13 +45,13 @@ const NewsCategories = () => {
     <ScrollView
     className=""
       style={{
-        backgroundColor: "#fff",
+        backgroundColor: theme.darkbackground,
         paddingVertical: 10,
         paddingHorizontal: 15,
         
       }}
     >
-      <Text style={{ fontSize: 25, fontWeight: "600", marginBottom: 10 }}>
+      <Text style={{ fontSize: 25, fontWeight: "600", marginBottom: 10 ,color:theme.darktext,fontFamily:"Geist-SemiBold"}}>
         {query}
       </Text>
       {data.length > 0 ? (
@@ -62,10 +63,11 @@ const NewsCategories = () => {
               gap: 20,
               alignItems: "center",
               borderWidth: 1,
-              borderColor: "#e5e5e5",
+              borderColor: theme.bordercolor,
               padding: 8,
               borderRadius: 12,
               marginBottom: 18,
+              backgroundColor: theme.cardbg,
             }}
           >
             <Image
@@ -82,6 +84,9 @@ const NewsCategories = () => {
                     fontSize: 15,
                     fontWeight: "600",
                     textAlign: "left",
+                    color: theme.darktext,
+                    fontFamily: "Geist-Medium",
+                    marginBottom: 5,
                   }}
                 >
                   {item.title}
@@ -96,7 +101,7 @@ const NewsCategories = () => {
                   }}
                 >
                   <Text style={styles.badge}>{item.category}</Text>
-                  <Text>Tue Nov 12 2024</Text>
+                  <Text style={{color:theme.lighttext,fontFamily:"Geist"}}>Tue Nov 12 2024</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -106,7 +111,7 @@ const NewsCategories = () => {
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <Text className="mt-40">No data found</Text>
+          <Text style={{color:theme.darktext}} className="mt-40">No data found</Text>
         </View>
       )}
     </ScrollView>
@@ -124,5 +129,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     color: "#fff",
+    fontFamily: "Geist",
   },
 });

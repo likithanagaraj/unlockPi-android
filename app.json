@@ -1,33 +1,34 @@
 {
   "expo": {
-    "name": "unlockPI",
+    "name": "UnlockPi",
     "slug": "unlockPI",
     "version": "1.0.0",
     "scheme": "learn-expo",
     "orientation": "portrait",
-    "icon": "./splashscreen.png",
-    "userInterfaceStyle": "light",
+    "icon": "./UnlockPi.png",
+    "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
-      "image": "./splashscreen.png",
+      "image": "./UnlockPi.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "black"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./unlockpi.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./UnlockPi.png",
+        "backgroundColor": "black"
       },
       "package": "com.likitha.n.unlockPI"
     },
     "web": {
-      "favicon": "./splashscreen.png"
+      "favicon": "./UnlockPi.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ],
     "extra": {
       "router": {

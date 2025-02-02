@@ -17,6 +17,7 @@ import Input from "../../components/Input";
 import SearchTabs from "../../components/SearchTabs";
 import Sortbtn from "../../components/home/Sortbtn";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { theme } from "../../utils/theme";
 
 const SearchTab = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -50,9 +51,9 @@ const SearchTab = () => {
   };
   return (
     <ProtectedRoute>
-      <ScrollView  stickyHeaderHiddenOnScroll={true}>
+      <ScrollView style={{backgroundColor:theme.darkbackground}}  stickyHeaderHiddenOnScroll={true}>
         <Navbar>Search</Navbar>
-        <View className="bg-white p-5 h-full ">
+        <View className=" p-5 h-full ">
 
           <SearchBar/>
         </View>
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     paddingVertical: 25,
     flexDirection: "column",
     paddingHorizontal: 15,
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     height: "100%",
     gap: 15,
   },

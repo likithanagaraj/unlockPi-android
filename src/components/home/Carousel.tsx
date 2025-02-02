@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import { theme } from '../../utils/theme';
 
 const Carousel = ({name,image}:any) => {
 
@@ -9,10 +10,9 @@ const Carousel = ({name,image}:any) => {
     <View className='' style={styles.container}>
      <View> <Image style={{resizeMode:"contain",height:80,width:80}} source={{uri:imageUrl}} /> </View>
       <View style={styles.textbox} >
-      <Text style={{fontWeight:'bold'}}>{name}</Text>
-      <Text style={{fontWeight:'light'}}>500+Empl...</Text>
-      {/* <Ionicons name="star" size={24} color="black" /> */}
-      {/* <FontAwesome name="google-plus-square" size={24} color="black" /> */}
+      <Text style={{color:theme.darktext,fontFamily:"Geist-Bold"}}>{name}</Text>
+      <Text style={{color:theme.lighttext,fontFamily:"Geist"}}>500+Empl...</Text>
+      
       </View>
     </View>
   )
@@ -25,11 +25,13 @@ const styles = StyleSheet.create({
    width: 143,
     height: 170,
     borderWidth:1,
-    borderColor:'#D8D8D8',
+    borderColor:theme.bordercolor,
     alignItems: "center", 
     justifyContent: "space-evenly", 
     flexDirection: "column",
     borderRadius: 10,
+    backgroundColor:theme.cardbg,
+    // opacity:5
   },
   textbox:{
     alignItems: "center", 

@@ -10,6 +10,7 @@ import {
   Dimensions,
   TouchableWithoutFeedback
 } from 'react-native';
+import { theme } from '../../utils/theme';
 
 const tabsData = [
   { name: 'location', options: ['Delhi', 'Bangalore', 'Pune', 'Punjab', 'Mumbai', 'Mangalore', 'Noida'] },
@@ -77,8 +78,9 @@ const Sortbtn = ({ isVisible, onClose, onApply }:any) => {
       animationType="slide"
       transparent={true}
       onRequestClose={onClose}
+      
     >
-      <TouchableWithoutFeedback onPress={onClose}>
+      <TouchableWithoutFeedback  onPress={onClose}>
         <View style={styles.modalOverlay}>
           <TouchableWithoutFeedback>
             <View style={styles.modalContainer}>
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContainer: {
-    backgroundColor: 'white',
+    backgroundColor: theme.darkbackground,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     maxHeight: Dimensions.get('window').height * 0.9,
@@ -149,10 +151,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+    color:theme.darktext,
+    fontFamily:"Geist-Medium"
   },
   closeButton: {
     padding: 5,
@@ -160,27 +165,35 @@ const styles = StyleSheet.create({
   closeButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
+    color:theme.darktext
   },
   tabsContainer: {
     marginVertical: 15,
+    display: 'flex',
+   
   },
   tab: {
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginHorizontal: 5,
     borderRadius: 20,
+    
   },
   activeTab: {
-    backgroundColor: 'red',
+    backgroundColor: '#dc2626',
   },
   tabText: {
     fontWeight: 'bold',
+    color:theme.darktext,
+    fontFamily:"Geist"
   },
   activeTabText: {
     color: '#fff',
+     fontFamily:"Geist"
   },
   contentContainer: {
     marginVertical: 15,
+    
   },
   scrollContent: {
     maxHeight: 200,
@@ -189,6 +202,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 15,
+    
   },
   checkboxContainer: {
     flexDirection: 'row',
@@ -202,13 +216,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     marginRight: 10,
+    // color:theme.darktext
   },
   checkboxChecked: {
-    backgroundColor: 'red',
-    borderColor: 'red',
+    backgroundColor: '#dc2626',
+    // borderColor: 'red',
+    // color:theme.darktext
   },
   checkboxLabel: {
     fontSize: 14,
+    color:theme.darktext,
+    fontFamily:"Geist-SemiBold"
   },
   footer: {
     flexDirection: 'row',
@@ -218,22 +236,26 @@ const styles = StyleSheet.create({
   clearButton: {
     paddingVertical: 10,
     paddingHorizontal: 15,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#fff',
     borderRadius: 20,
+    
   },
   clearButtonText: {
     fontSize: 14,
     color: '#333',
+    fontFamily:"Geist-Medium"
   },
   applyButton: {
     paddingVertical: 10,
     paddingHorizontal: 15,
-    backgroundColor: 'red',
+    backgroundColor: '#dc2626',
     borderRadius: 20,
+    
   },
   applyButtonText: {
     fontSize: 14,
-    color: '#fff',
+    color: theme.darktext,
+    fontFamily:"Geist-Medium"
   },
 });
 

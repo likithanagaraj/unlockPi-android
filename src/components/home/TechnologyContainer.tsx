@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import Carousel from "./Carousel";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { theme } from "../../utils/theme";
 
 interface Company {
   id: string;
@@ -44,6 +45,7 @@ const TechnologyContainer = () => {
         );
         const result = await response.json();
         setCompany(result);
+        console.log(result)
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -61,7 +63,8 @@ const TechnologyContainer = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <Text className="h1">Technology</Text>
+      <Text style={{color:theme.darktext, fontFamily:"Geist-SemiBold" }} className="h1">Technology</Text>
+      
       {loading ? (
         // Render skeleton loader while data is being fetched
         <FlatList
@@ -98,6 +101,7 @@ export default TechnologyContainer;
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    // backgroundColor: theme.bordercolor,
   },
   header: {
     fontSize: 25,
@@ -105,30 +109,33 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   listContent: {
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
     gap: 25,
   },
   skeletonContainer: {
     width: 150,
     height: 200,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: theme.cardbg,
     borderRadius: 10,
     marginRight: 10,
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
+    borderColor: theme.bordercolor,
+    borderWidth: 1,
   },
   skeletonImage: {
     width: "100%",
     height: "70%",
-    backgroundColor: "white",
+    backgroundColor: theme.bordercolor,
     borderRadius: 8,
     marginBottom: 10,
+    
   },
   skeletonText: {
     width: "60%",
     height: 15,
-    backgroundColor: "#cfcfcf",
+    backgroundColor: theme.bordercolor,
     borderRadius: 5,
   },
 });

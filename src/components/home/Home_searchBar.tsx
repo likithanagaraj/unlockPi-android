@@ -9,14 +9,15 @@ import {
 import React, { useState } from "react";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { theme } from "../../utils/theme";
 
 const Home_searchBar = () => {
   return (
     <Pressable onPress={() => router.push("/(notabs)/SearchTab")}>
-      <View className="flex-row border gap-3 items-center border-[#e5e5e5] p-3 rounded-[10px]" >
+      <View style={{borderColor:theme.bordercolor,borderWidth:2,backgroundColor:theme.cardbg}} className="flex-row  gap-3 items-center  p-3 rounded-[10px]" >
         
-        <Ionicons name="search" size={22} color="#737373" />
-          <Text className="text-[16px]  text-[#737373]">Find best job for you!</Text>
+        <Ionicons name="search" size={18} color={theme.lighttext} />
+          <Text style={{color:theme.lighttext,fontFamily:"Geist"}} className="text-[16px]">Find best company for you!</Text>
         
         
       </View>

@@ -1,4 +1,4 @@
-import { ScrollView, View, Text, Image, Button } from "react-native";
+import { ScrollView, View, Text, Image } from "react-native";
 import { ProtectedRoute } from "../../components/ProtectedRoute";
 import Navbar from "../../components/home/Navbar";
 import Input from "../../components/Input";
@@ -8,6 +8,8 @@ import Sortbtn from "../../components/home/Sortbtn";
 import { Link } from "expo-router";
 import TechnologyContainer from "../../components/home/TechnologyContainer";
 import MediaContainer from "../../components/home/MediaContainer";
+import { theme } from "../../utils/theme";
+import { Button } from "react-native-paper";
 
 const index = () => {
   const [searchResults, setSearchResults] = useState<
@@ -103,17 +105,18 @@ const index = () => {
 
   return (
     <ProtectedRoute>
-      <ScrollView className="bg-white" style={{ height: "100%" }}>
+      <ScrollView  style={{ height: "100%" ,backgroundColor:theme.darkbackground}} stickyHeaderHiddenOnScroll={true}>
         <Navbar>Companies</Navbar>
 
         <View className="p-4 gap-5  font-bold">
-          <View className="w-20 ">
-            <Button
+          <View className="w-16 ">
+            {/* <Button
               title="Sort"
-              color="#DC2626"
               
+              color="#dc2626"
               onPress={() => setIsModalVisible(true)}
-            />
+            /> */}
+            <Button labelStyle={{fontFamily:"Geist-Bold"}}  style={{width:80 , height:39,borderRadius:8}} textColor={theme.darktext} buttonColor="#dc2626" icon="sort" mode="contained" onPress={() => setIsModalVisible(true)} >Sort</Button>
             <Sortbtn
               isVisible={isModalVisible}
               onClose={() => setIsModalVisible(false)}
@@ -122,15 +125,15 @@ const index = () => {
           </View>
           <Input onQueryChange={fetchJobs} />
           {loading ? (
-            <Text>Loading...</Text>
+            <Text style={{color:theme.darktext,fontFamily:"Geist"}}>Loading...</Text>
           ) : (
             <View>
               {(sortedResults.length > 0 ? sortedResults : searchResults).map(
                 (item) => (
-                  <View key={item.id} className="flex-row items-center p-4  ">
+                  <View style={{backgroundColor:theme.cardbg,borderColor:theme.bordercolor,borderWidth:1}} key={item.id} className="flex-row items-center p-4  mb-5 rounded-md">
                     <Link href={`/(company)/${item.name}`}>
                       <View className="flex-row gap-8 items-center ">
-                        <View className="bg-white border-[1px] border-[#D8D8D8] w-20 h-20 items-center  justify-center shadow-lg">
+                        <View style={{borderColor:theme.bordercolor,borderWidth:1,}}  className=" w-20 h-20 items-center  justify-center shadow-lg ">
                           {item.logo && (
                             <Image
                               className=""
@@ -140,15 +143,15 @@ const index = () => {
                             />
                           )}
                         </View>
-                        <View className="flex-col gap-[1px]">
-                          <Text className="text-[22px] font-semibold">
+                        <View className="flex-col gap-[3px]">
+                          <Text style={{color:theme.darktext,fontFamily:"Geist-Bold"}} className="text-[19px] font-semibold">
                             {item.name}
                           </Text>
                           <View className="flex-row gap-5 ">
-                            <Text className="text-[16px] font-light text-[rgb(24, 27, 24)]">
+                            <Text style={{color:theme.lighttext,fontFamily:"Geist"}} className="text-[13px]  text-[rgb(24, 27, 24)]">
                               {item.industry}
                             </Text>
-                            <Text className="text-[16px] font-light text-[rgb(24, 27, 24)]">
+                            <Text  style={{color:theme.lighttext,fontFamily:"Geist"}} className="text-[13px] font-light text-[rgb(24, 27, 24)]">
                               {item.location}
                             </Text>
                           </View>

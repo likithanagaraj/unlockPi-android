@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Button } from "react-native-paper";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { theme } from "../../utils/theme";
 
 const SkeletonLoader = () => (
   <View style={styles.skeletonCard}>
@@ -71,15 +72,17 @@ const EventsContainer = () => {
           style={{
             alignItems: "flex-start",
             justifyContent: "center",
-            width: 360,
+            // width: 360,
             borderWidth: 1,
             paddingVertical: 25,
-            paddingHorizontal: 18,
-            borderColor: "#e5e5e5",
+            paddingHorizontal: 16,
+            borderColor: theme.bordercolor,
             borderRadius: 20,
             gap: 5,
+            backgroundColor:theme.cardbg
           }}
         >
+          
           <Image
             source={require("../../assets/images/eventCover.jpg")}
             style={{
@@ -110,8 +113,9 @@ const EventsContainer = () => {
                 <Text
                   style={{
                     fontSize: 16,
-                    fontWeight: "semibold",
                     letterSpacing: -0.2,
+                    color: theme.darktext,
+                    fontFamily:"Geist-Light"
                   }}
                 >
                   {item.location}
@@ -123,6 +127,7 @@ const EventsContainer = () => {
                   flexDirection: "row",
                   alignItems: "center",
                   gap: 5,
+                  
                 }}
               >
                 <Ionicons
@@ -134,7 +139,9 @@ const EventsContainer = () => {
                   style={{
                     letterSpacing: -0.5,
                     fontSize: 15,
-                    fontWeight: "semibold",
+                    // fontWeight: "semibold",
+                 color: theme.darktext,
+                    fontFamily:"Geist-Light"
                   }}
                 >
                   {new Date(item.eventDate).toLocaleDateString("en-US", {
@@ -157,8 +164,9 @@ const EventsContainer = () => {
                   router.push(`/(events)/${item.slug}`);
                 }}
                 buttonColor="#DC2626"
-                textColor="white"
+                textColor={theme.darktext}
                 style={styles.button}
+                labelStyle={{  fontFamily:"Geist-SemiBold" }}
               >
                 Attend
               </Button>
@@ -178,20 +186,25 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "center",
-    gap: 12,
+    gap: 14,
   },
   eventTitle: {
-    fontSize: 25,
-    fontWeight: "bold",
-    minHeight: 40, // Ensures minimum space for two lines
+    fontSize: 22,
+    // fontWeight: "bold",
+    minHeight: 40,
+    color:theme.darktext,
+    fontFamily:"Geist-SemiBold"
   },
   description: {
     fontSize: 14,
     textAlign: "justify",
+    color:theme.lighttext,
+    fontFamily:"Geist"
   },
   button: {
     borderRadius: 10,
     paddingVertical: 3,
+    
   },
   // Skeleton Styles
   skeletonContainer: {
@@ -204,28 +217,30 @@ const styles = StyleSheet.create({
     width: 320,
     height: 300,
     borderRadius: 10,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: theme.cardbg,
     padding: 20,
+    borderColor: theme.bordercolor,
+    borderWidth: 1,
   },
   skeletonImage: {
     width: "100%",
     height: 150,
     borderRadius: 8,
-    backgroundColor: "#cfcfcf",
+    backgroundColor: theme.bordercolor,
     marginBottom: 15,
   },
   skeletonTextLarge: {
     width: "80%",
     height: 20,
     borderRadius: 5,
-    backgroundColor: "white",
+    backgroundColor: theme.bordercolor,
     marginBottom: 10,
   },
   skeletonTextSmall: {
     width: "60%",
     height: 15,
     borderRadius: 5,
-    backgroundColor: "#d0d0d0",
+    backgroundColor: theme.bordercolor,
     marginBottom: 5,
   },
 });

@@ -9,11 +9,13 @@ import {
 import React, { useEffect, useState } from "react";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { theme } from "../../utils/theme";
 
 const SkeletonLoader = () => {
   return (
     <View style={styles.skeletonContainer}>
       <View style={styles.skeletonImage} />
+      {/* <SkeletonLoader/> */}
       <View>
         <View style={styles.skeletonText} />
         <View style={[styles.skeletonText, { width: 120 }]} />
@@ -63,24 +65,24 @@ const TreadingNews = () => {
         </>
       ) : (
         data.map((item: any, index: number) => (
-          <View
-            key={item.id}
-            style={styles.newsContainer}
-          >
+          <View key={item.id} style={styles.newsContainer}>
             {/* <SkeletonLoader/> */}
             <Image
+              className="border-white/20 border shadow-md"
               source={require("../../assets/images/newsCover.png")}
               style={styles.newsImage}
             />
-            
+
             <TouchableOpacity
               onPress={() => router.push(`/(news)/${item.slug}`)}
             >
-              <View>
+              <View className="flex-1">
                 <Text style={styles.newsTitle}>{item.title}</Text>
                 <View style={styles.newsDetails}>
                   <Text style={styles.badge}>{item.category}</Text>
-                  <Text>Tue Nov 12 2024</Text>
+                  <Text style={{ color: theme.lighttext, fontFamily: "Geist" }}>
+                    Tue Nov 12 2024
+                  </Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -95,41 +97,43 @@ export default TreadingNews;
 
 const styles = StyleSheet.create({
   badge: {
-    backgroundColor: "#DE3333",
+    backgroundColor: "#dc2626",
     width: 60,
     textAlign: "center",
     padding: 2,
     borderRadius: 50,
-    color: "white",
-    fontWeight: "bold",
+    color: theme.darktext,
     fontSize: 12,
+    fontFamily: "Geist-Medium",
   },
   skeletonContainer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent:"space-between",
     borderWidth: 1,
-    borderColor: "#e5e5e5",
-    padding: 8,
+    borderColor: theme.bordercolor,
+    padding: 12,
     borderRadius: 12,
-    marginBottom: 10,
-    gap:5
+    backgroundColor: theme.cardbg,
+    // marginBottom: 10,
+    gap: 5,
   },
   skeletonImage: {
-    width: 110,
+    width: 100,
     height: 80,
     borderRadius: 10,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: theme.bordercolor,
   },
   skeletonText: {
     height: 15,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: theme.bordercolor,
     marginBottom: 5,
     borderRadius: 5,
-    width: 200,
+    width: 180,
   },
   skeletonBadge: {
     height: 12,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: theme.bordercolor,
     borderRadius: 50,
     width: 60,
   },
@@ -138,9 +142,10 @@ const styles = StyleSheet.create({
     gap: 20,
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#e5e5e5",
-    padding: 8,
+    borderColor: theme.bordercolor,
+    padding: 12,
     borderRadius: 12,
+    backgroundColor: theme.cardbg,
   },
   newsImage: {
     width: 110,
@@ -150,8 +155,9 @@ const styles = StyleSheet.create({
   newsTitle: {
     maxWidth: 200,
     fontSize: 15,
-    fontWeight: "600",
     textAlign: "left",
+    color: theme.darktext,
+    fontFamily: "Geist",
   },
   newsDetails: {
     flex: 1,

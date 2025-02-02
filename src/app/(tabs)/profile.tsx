@@ -6,6 +6,7 @@ import { router } from "expo-router";
 import { useAuth } from "../../context/authContext";
 import Navbar from "../../components/home/Navbar";
 import { ProtectedRoute } from "../../components/ProtectedRoute";
+import { theme } from "../../utils/theme";
 
 const Profile = () => {
   const { user } = useAuth();
@@ -25,18 +26,18 @@ const Profile = () => {
 
   return (
    
-      <View className="">
+      <View >
       <Ionicons
         name="person-circle-sharp"
         size={100}
-        color="black"
+        color="white"
         style={{ alignSelf: "center" }}
       />
-      <Text style={{ textAlign: "center", fontSize: 25, fontWeight: "bold" }}>
+      <Text style={{ textAlign: "center", fontSize: 25, fontWeight: "bold",color:theme.darktext,fontFamily:" Geist-Bold" }}>
       {userName}
       </Text>
-      <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "400" }}>{user.email}</Text>
-      <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "500" }}>
+      <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "400",color:theme.darktext,fontFamily:" Geist" }}>{user.email}</Text>
+      <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "500" ,color:theme.darktext,fontFamily:" Geist-Bold"}}>
         You're a Premium User 🔥
       </Text>
     </View>
@@ -69,26 +70,30 @@ const ButtonComponent = () => {
   return (
     <View style={{ gap: 8 }}>
       <Button
-        textColor="black"
+        textColor={theme.darktext}
+        labelStyle={{ fontFamily:" Geist-Bold" }}
         mode="contained"
         style={{
           borderWidth: 1,
-          backgroundColor: "white",
-          borderColor: "#e5e5e5",
+          backgroundColor: theme.cardbg,
+          borderColor: theme.bordercolor,
           borderRadius: 8,
+          
         }}
         onPress={() => console.log("Pressed")}
       >
         Change Password
       </Button>
       <Button
-        textColor="black"
+        textColor={theme.darktext}
+        labelStyle={{ fontFamily:" Geist-Bold" }}
         mode="contained"
         style={{
           borderWidth: 1,
-          backgroundColor: "white",
-          borderColor: "#e5e5e5",
+          backgroundColor: theme.cardbg,
+          borderColor: theme.bordercolor,
           borderRadius: 8,
+          
         }}
         onPress={() => console.log("Pressed")}
       >
@@ -97,6 +102,7 @@ const ButtonComponent = () => {
       <Button
         mode="contained"
         textColor="white"
+        labelStyle={{ fontFamily:" Geist-Bold" }}
         style={{ backgroundColor: "#DC2626", borderRadius: 8 }}
         onPress={handleLogout} // Updated to call handleLogout directly
       >
@@ -109,7 +115,7 @@ const ButtonComponent = () => {
 const index = () => {
   return (
     <ProtectedRoute>
-      <ScrollView stickyHeaderHiddenOnScroll={true}>
+      <ScrollView style={{backgroundColor:theme.darkbackground}}  stickyHeaderHiddenOnScroll={true}>
         <Navbar>Profile</Navbar>
         <View style={styles.mainContainer}>
           <View style={{ gap: 30 }}>
@@ -128,7 +134,6 @@ const styles = StyleSheet.create({
   mainContainer: {
     paddingVertical: 10,
     paddingHorizontal: 15,
-    backgroundColor: "#fff",
     height:615
   },
 });

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { theme } from "../../utils/theme";
 
 const AuthForm = ({
   title,
@@ -22,12 +23,13 @@ const AuthForm = ({
   return (
    
       <View className=" mb-3 ">
-        <View className="gap-2"> 
+        <View className="gap-3"> 
         <Text style={styles.inputText}>{title}</Text>
-       <View className="border  border-[#e5e5e5] rounded-md ">
+       <View  style={{borderColor:theme.bordercolor,borderWidth:1,backgroundColor:theme.darkbackground}} className=" rounded-md ">
        <TextInput
+      style={{color:theme.darktext}}
        className="p-3"
-          placeholderTextColor={"#7b7b7b"}
+          placeholderTextColor={theme.lighttext}
           placeholder={placeholder}
           value={value}
           onChangeText={handleChangeText}
@@ -48,9 +50,8 @@ const styles = StyleSheet.create({
   formContainer: {},
   inputText: {
     fontSize: 17,
-    fontWeight: "bold",
-    
-
+    fontFamily: "Geist-Medium",
+    color:theme.darktext,
   },
   inputContainer: {
     flexDirection: "column",
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
     gap: 5,
     marginBottom: 10,
     justifyContent: "center",
+    
   },
  
 });

@@ -1,14 +1,29 @@
 // RootLayout.js
-import { Stack } from "expo-router";
+import { SplashScreen, Stack } from "expo-router";
 import React, { createContext, useContext } from "react";
 import { AuthProvider } from "../context/authContext";
 import "../../global.css";
-import { LogBox } from "react-native";
+import { LogBox, View } from "react-native";
+import { theme } from "../utils/theme";
+import { useFonts } from 'expo-font';
 LogBox.ignoreLogs(["Setting a timer"]);
 
-
-
 function RootLayout() {
+  let [fontloaded] = useFonts(
+    {
+      'Geist': require('../assets/fonts/Geist-v1.4.01/ttf/Geist-Regular.ttf'),
+      'Geist-Bold': require('../assets/fonts/Geist-v1.4.01/ttf/Geist-Bold.ttf'),
+      'Geist-Light': require('../assets/fonts/Geist-v1.4.01/ttf/Geist-Light.ttf'),
+      'Geist-Medium': require('../assets/fonts/Geist-v1.4.01/ttf/Geist-Medium.ttf'),
+      'Geist-SemiBold': require('../assets/fonts/Geist-v1.4.01/ttf/Geist-SemiBold.ttf'),
+      'Geist-ExtraBold': require('../assets/fonts/Geist-v1.4.01/ttf/Geist-ExtraBold.ttf'),
+      'Geist-Black': require('../assets/fonts/Geist-v1.4.01/ttf/Geist-Black.ttf'),
+      
+    }
+  )
+  if(!fontloaded){
+    SplashScreen.hideAsync()
+  }
   return (
     <AuthProvider>
       <Stack screenOptions={{ headerShown: false }}>

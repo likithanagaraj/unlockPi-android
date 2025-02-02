@@ -7,12 +7,11 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { DarkTheme, Link } from "@react-navigation/native";
 import { router } from "expo-router";
 import { useAuth } from "../../context/authContext";
 import { Avatar } from "react-native-paper";
-import { black } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
-// import "../../global.css";
+import { theme } from "../../utils/theme";
+
 const Navbar = ({ children }: any) => {
   const { user } = useAuth();
 
@@ -30,22 +29,19 @@ const Navbar = ({ children }: any) => {
           </TouchableOpacity>
 
           <View>
-            <Text style={styles.text}>{children}</Text>
+            <Text style={{fontFamily:"Geist-Bold",fontSize:18,color:theme.darktext}}>{children}</Text>
             {/* <Text style={styles.subText}>Kormangala</Text> */}
           </View>
         </View>
         <Avatar.Text
-          style={{ backgroundColor: "black" }}
+        labelStyle={{fontFamily:"Geist-SemiBold"}}
+        color="black"
+          style={{ backgroundColor: "#fff", borderColor: "black" ,borderWidth:1.3,}}
           size={34}
           label={initials}
         />
-        {/* <Text className="text-2xl font-bold bg-black ">{initials}</Text> */}
-        {/* <TouchableOpacity
-        style={styles.avatarContainer}
-        onPress={() => router.push(`/(tabs)/profile`)}
-      >
+     
         
-      </TouchableOpacity> */}
       </View>
     </Pressable>
   );
@@ -58,25 +54,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
-    borderBottomColor: "#E0E0E0",
-    paddingBottom: 10,
+    // borderBottomColor: theme.bordercolor,
+    // paddingBottom: 10,
     paddingHorizontal: 10,
-    borderBottomWidth: 0.5,
-    backgroundColor: "white",
+    // borderBottomWidth: 0.5,
+    backgroundColor: theme.darkbackground,
+    
   },
   leftContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
   logo: {
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 30,
     resizeMode: "contain",
   },
-  text: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
+ 
   subText: {
     fontSize: 14,
     color: "gray",
@@ -85,7 +79,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 22.5,
-    backgroundColor: "black",
+    // backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
     color: "white",

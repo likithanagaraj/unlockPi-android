@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Link, router } from "expo-router";
+import { theme } from "../../utils/theme";
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");
@@ -106,15 +107,16 @@ const SearchBar = () => {
   };
 
   return (
-    <View className="mt-1 " style={{ gap: 5,backgroundColor:"white "  }}>
+    <View className="mt-1 " style={{ gap: 5, }}>
       <View style={styles.container}>
         <TextInput
+        placeholderTextColor={theme.lighttext}
           placeholder="Find best job for you!"
           value={query}
           onChangeText={handleSearch}
-          style={{ fontSize: 15, fontWeight: "semibold" }}
+          style={{ fontSize: 15, fontWeight: "semibold" ,fontFamily:"Geist0",color:theme.darktext}}
         />
-        <Ionicons name="search" size={22} color="black" />
+        <Ionicons name="search" size={20} color={theme.lighttext} />
       </View>
 
       <View style={styles.tabsContainer}>
@@ -141,15 +143,13 @@ const SearchBar = () => {
       </View>
 
       <FlatList
-      
+      key={filteredResults.length}
         data={filteredResults} // Use the same filtered results for both tabs
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <View  className="">
             {activeTab === "News" ? (
               // Rendering logic for "News" tab
-              
-
                 <View
                 className=""
                   style={{
@@ -159,14 +159,16 @@ const SearchBar = () => {
                     marginBottom: 18,
                     alignItems: "center",
                     borderWidth: 1,
-                    borderColor: "#e5e5e5",
-                    padding: 8,
+                    borderColor: theme.bordercolor,
+                    padding: 10,
                     borderRadius: 12,
+                    backgroundColor:theme.cardbg,
+                    
                   }}
                 >
                   
                   <Image
-                  
+                  className="border border-white/20 shadow-md"
                     source={require("../../assets/images/newsCover.png")}
                     style={{ width: 110, height: 80, borderRadius: 10 }}
                   />
@@ -178,6 +180,9 @@ const SearchBar = () => {
                           fontSize: 15,
                           fontWeight: "600",
                           textAlign: "left",
+                          color:theme.darktext,
+                          fontFamily:"Geist-Medium",
+                          marginBottom: 5,
                         }}
                       >
                         {item.title}
@@ -192,7 +197,7 @@ const SearchBar = () => {
                         }}
                       >
                         <Text style={styles.badge}>{item.category}</Text>
-                        <Text>Tue Nov 12 2024</Text>
+                        <Text style={{color:theme.lighttext,fontFamily:"Geist"}}>Tue Nov 12 2024</Text>
                       </View>
                     </View>
                   </TouchableOpacity>
@@ -202,10 +207,10 @@ const SearchBar = () => {
               // Rendering logic for "Companies" tab
               <Link href={`/(company)/${item.title}`}>
                <View className="flex-row gap-10  items-center  ">
-                <View className="bg-white mb-5 w-20 h-20 items-center justify-center shadow-lg">
+                <View style={{backgroundColor:theme.cardbg}} className=" mb-5 w-20 h-20 items-center justify-center shadow-lg">
                 {item.logo && <Image resizeMode="contain" source={{ uri: item.logo }} style={{ width: 50, height: 50 }} />}
                 </View>
-               <Text className="text-[18px] font-semibold">{item.name}</Text>
+               <Text style={{color:theme.darktext,fontFamily:"Geist-Medium"}} className="text-[18px] font-semibold">{item.name}</Text>
               
                </View>
               </Link>
@@ -233,16 +238,18 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     color: "#fff",
+    fontFamily:"Geist-Bold"
   },
   container: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    borderColor: "#e5e5e5",
+    borderColor: theme.bordercolor,
     borderWidth: 1,
-    borderRadius: 50,
+    borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 4,
+    backgroundColor:theme.cardbg
   },
   resultItem: {
     padding: 10,
@@ -271,12 +278,13 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontSize: 16,
-    color: "black",
+    color: "white",
     fontWeight: "500",
-   
+   fontFamily:"Geist-SemiBold"
   },
   activeTabText: {
     color: "#DE3333",
+    fontFamily:"Geist-SemiBold"
   },
   tabsContainer: {
     flexDirection: "row",

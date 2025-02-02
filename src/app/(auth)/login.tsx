@@ -14,6 +14,7 @@ import { useAuth } from "../../context/authContext";
 import apiClient from "../../utils/apiClient";
 import AuthForm from "../../components/auth/AuthForm";
 import CustomButton from "../../components/auth/CustomButton";
+import { theme } from "../../utils/theme";
 
 // Define a type for form state
 interface FormState {
@@ -52,13 +53,13 @@ const Login = () => {
   };
 
   return (
-    <SafeAreaView style={{ backgroundColor: "white", height: "100%" }}>
-      <ScrollView>
+    <SafeAreaView style={{  height: "100%",backgroundColor:theme.darkbackground }}>
+      <ScrollView >
         <View style={styles.container}>
           <Text style={styles.text}>Login</Text>
           <Image
             style={styles.heroImage}
-            source={require("../../assets/images/auth-hero.png")}
+            source={require("../../assets/images/auth-image.png")}
           />
           <View style={styles.formContainer}>
             <AuthForm
@@ -86,7 +87,7 @@ const Login = () => {
               href={"/(auth)/register"}
               style={styles.registerLink}
             >
-              <Text>Don't have an account? Register</Text>
+              <Text style={{fontFamily: "Geist-Light",}}>Don't have an account? Register</Text>
             </Link>
           </View>
         </View>
@@ -104,11 +105,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20,
     paddingVertical: 20,
+   
   },
   text: {
     fontSize: 30,
     textAlign: "center",
-    fontWeight: "bold",
+    color: theme.darktext,
+    fontFamily: "Geist-Bold",
   },
   heroImage: {
     width: "100%",
@@ -116,13 +119,15 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   formContainer: {
-    borderWidth: 0.3,
+    borderWidth: 1,
     paddingVertical: 20,
-    paddingHorizontal: 15,
-    width: 300,
+    paddingHorizontal: 20,
+    width: 305,
     borderRadius: 10,
     flexDirection: "column",
     gap: 3,
+    backgroundColor: theme.cardbg,
+    borderColor: theme.bordercolor,
   },
   registerLink: {
     textDecorationLine: "underline",

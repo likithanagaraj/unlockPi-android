@@ -1,9 +1,10 @@
 import { router } from 'expo-router';
 import React, { useRef, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, FlatList, Dimensions, Pressable } from 'react-native';
+import { theme } from '../../utils/theme';
 
 const { width } = Dimensions.get('window');
-const ITEM_WIDTH = 320;
+const ITEM_WIDTH = 350;
 
 const HomeBannerCarousel = () => {
   const flatListRef = useRef<FlatList>(null);
@@ -16,7 +17,7 @@ const HomeBannerCarousel = () => {
       subtitle: 'Your career compass for future opportunities.',
       button: 'Join Now',
       image: require('../../assets/images/bg2.png'),
-      featuredImage: require('../../assets/images/welcome_bg.png'),
+      featuredImage: require('../../assets/images/engineer (1) 1.png'),
       link: '/(tabs)',
     },
     {
@@ -71,7 +72,7 @@ const HomeBannerCarousel = () => {
   const renderItem = ({ item }: any) => (
     <Pressable onPress={() => router.push(`${item.link}`)}>
       <View style={styles.container}>
-        <Image source={item.image} style={styles.bgImage} />
+        {/* <Image source={item.image} style={styles.bgImage} /> */}
         <Image source={item.featuredImage} style={styles.featuredImage} />
         <View style={styles.content}>
           <Text style={styles.title}>{item.title}</Text>
@@ -84,6 +85,7 @@ const HomeBannerCarousel = () => {
   return (
     <View>
       <FlatList
+      key={tabs.length}
         ref={flatListRef}
         horizontal
         data={tabs}
@@ -120,9 +122,11 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     minHeight: 140,
     borderWidth: 1,
-    borderColor: '#DF3C3C',
+    borderColor: theme.bordercolor,
     width: ITEM_WIDTH,
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
+    height: 160,
+    backgroundColor: theme.cardbg,
   },
   bgImage: {
     width: '100%',
@@ -142,14 +146,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     maxWidth: 140,
-    fontWeight: 'bold',
-    color: '#E41E31',
+    color: '#dc2626',
+    fontFamily: 'Geist-SemiBold',
   },
   subtitle: {
     fontSize: 14,
     maxWidth: 170,
-    fontWeight: '500',
     marginVertical: 8,
+    fontFamily: 'Geist-Medium',
+    color: theme.darktext,
   },
   pagination: {
     position: 'absolute',

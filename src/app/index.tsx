@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
+import { theme } from "../utils/theme";
 
 const Index = () => {
   useEffect(() => {
@@ -23,8 +24,8 @@ const Index = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={require("../assets/images/unlockpi.png")} style={styles.logo} />
-      <Text style={styles.text}>UnlockPI</Text>
+      <Image source={require("../assets/images/splashscreen.png")} style={{width:250,height:250,resizeMode:"contain"}} />
+      {/* <Text style={styles.text}>UnlockPI</Text> */}
     </View>
   );
 };
@@ -33,19 +34,18 @@ export default Index;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: theme.darkbackground,
     height: "100%",
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
-  },
-  logo: {
-    width: 100,
-    height: 100,
+    
   },
   text: {
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
-    color: "#333",
+    color: theme.darktext,
+    
   },
 });

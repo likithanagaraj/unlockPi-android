@@ -4,6 +4,7 @@ import { useLocalSearchParams } from "expo-router";
 import { ActivityIndicator } from "react-native-paper";
 import { useAuth } from "../../context/authContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { theme } from "../../utils/theme";
 
 const CompanyDetails = ({ slug }: any) => {
   const [data, setData] = useState<any[]>([]);
@@ -30,20 +31,20 @@ const CompanyDetails = ({ slug }: any) => {
     fetchData();
   }, [slug]);
   return (
-    <View style={{gap:2}}>
-      {/* <Text style={styles.box}></Text> */}
+    <View style={{gap:2,}}>
+
      {
       data.map((item: any, index: number) => (
-        <View>
+        <View className="flex flex-col gap-[1px]">
           <Image style={styles.box}  source={{uri:item.logo}}  />
-        <Text style={{ fontSize: 32, fontWeight: "600", letterSpacing: -0.3 }}>
+        <Text style={{ fontSize: 30, fontWeight: "600", letterSpacing: -0.3,color:theme.darktext,fontFamily:"Geist-SemiBold" }}>
           {item.name}
         </Text>
        <View className="flex-row items-center w-60 gap-3">
-       <Text className="text-[#737373]" style={{fontSize:16,fontWeight:"400"}}>{item.industry}</Text>
-       <Text  className="text-[#737373]" style={{fontSize:16,fontWeight:"400"}}>{item.location}</Text>
+       {/* <Text className="text-[#737373]" style={{fontSize:16,fontWeight:"400"}}>{item.industry}</Text>
+       <Text  className="text-[#737373]" style={{fontSize:16,fontWeight:"400"}}>{item.location}</Text> */}
        </View>
-        <Text className="text-[15px]">
+        <Text style={{color:theme.lighttext,fontFamily:"Geist"}} className="text-[14px]">
           {item.overview}
         </Text>
         </View>
@@ -83,19 +84,19 @@ const JobContainer = ({name}:any) => {
     return (
       <View style={styles.container}>
         <ActivityIndicator size="large" color="#DC2626" />
-        <Text>Loading...</Text>
+        <Text style={{color:theme.darktext}}>Loading...</Text>
       </View>
     );
   }
   return (
     <>
     {data.map((item: any, index: number) => (
-        <View key={index} style={{flexDirection:"row",borderWidth:1,borderColor:"#E0E0E0",padding:15,borderRadius:5,alignItems:"center",}}>
+        <View key={index} style={{flexDirection:"row",borderWidth:1,borderColor:theme.bordercolor,padding:15,borderRadius:5,alignItems:"center",backgroundColor:theme.cardbg}}>
         <View style={{width:200}}>
-          <Text  style={{fontSize:18,fontWeight:"bold",}}>{item.title}</Text>
-          <Text  style={{fontSize:12,fontWeight:"regular",}} >{item.keywords}</Text>
+          <Text  style={{fontSize:18,fontWeight:"bold",color:theme.darktext,fontFamily:"Geist-Bold"}}>{item.title}</Text>
+          <Text  style={{fontSize:12,fontWeight:"regular",color:theme.lighttext,fontFamily:"Geist"}} >{item.keywords}</Text>
         </View>
-        <View style={{width:30,height:30}} >
+        <View style={{width:30,height:30,}} >
            <Image  source={require("../../assets/images/google.png")} />
         </View>
       </View>
@@ -112,14 +113,14 @@ const name = () => {
   return (
     <ScrollView
       style={{
-        backgroundColor: "#fff",
+        backgroundColor: theme.darkbackground,
         paddingVertical: 10,
         paddingHorizontal: 15,
       }}
     >
       <View style={styles.mainContainer}>
         <CompanyDetails slug={name} />
-        <Text style={{fontSize:20,fontWeight:"bold"}}>All Jobs</Text>
+        <Text style={{fontSize:20,fontWeight:"bold",color:theme.darktext,fontFamily:'Geist-Bold'}}>All Jobs</Text>
         <JobContainer name = {name}/>
       </View>
     </ScrollView>
@@ -133,11 +134,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     borderRadius: 10,
-    backgroundColor: "white",
     resizeMode: "contain",
-    borderColor: "#e5e5e5",
+    borderColor: theme.bordercolor,
     borderWidth: 1,
-    
+    backgroundColor: theme.cardbg,
    
   },
   mainContainer: {
@@ -145,11 +145,13 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     paddingHorizontal: 10,
     
+    
   },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
+    backgroundColor: theme.darkbackground,
   },
 });

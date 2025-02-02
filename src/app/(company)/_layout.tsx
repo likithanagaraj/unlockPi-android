@@ -3,6 +3,7 @@ import React from "react";
 import { router, Stack } from "expo-router";
 
 import { Appbar } from "react-native-paper";
+import { theme } from "../../utils/theme";
 
 const Layout = () => {
   return (
@@ -10,9 +11,9 @@ const Layout = () => {
       screenOptions={{
         header: (props) => {
           return (
-            <Appbar.Header >
-              <Appbar.BackAction onPress={() => {router.push("/(tabs)")}} />
-              <Appbar.Content title="Back" />
+            <Appbar.Header style={{backgroundColor:theme.cardbg}}>
+              <Appbar.BackAction color="white" onPress={() => {router.push("/(tabs)")}} />
+              <Appbar.Content color="white" title="Back" />
             </Appbar.Header>
           );
         },
