@@ -5,26 +5,26 @@
     "version": "1.0.0",
     "scheme": "learn-expo",
     "orientation": "portrait",
-    "icon": "./UnlockPi.png",
+    "icon": "./unlockpi.png",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
-      "image": "./UnlockPi.png",
+      "image": "./unlockpi.png",
       "resizeMode": "contain",
-      "backgroundColor": "black"
+      "backgroundColor": "#000000"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./UnlockPi.png",
-        "backgroundColor": "black"
+        "foregroundImage": "./unlockpi.png",
+        "backgroundColor": "#000000"
       },
       "package": "com.likitha.n.unlockPI"
     },
     "web": {
-      "favicon": "./UnlockPi.png"
+      "favicon": "./unlockpi.png"
     },
     "plugins": [
       "expo-router",
@@ -37,6 +37,7 @@
       "eas": {
         "projectId": "c9c1d19a-a587-4fa2-8902-2df190d4f597"
       }
-    }
+    },
+    "owner": "likitha.n"
   }
 }
